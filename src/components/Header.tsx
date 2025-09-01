@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Download, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/enhanced-button";
 import { ThemeToggle } from "./ThemeToggle";
+import { SolicitarCVButton } from "./ui/openGmail";
 
 const navigation = [
   { name: "Inicio", href: "#inicio" },
@@ -98,15 +99,32 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex md:items-center md:space-x-4">
+            {/* Ver CV en Drive */}
             <Button
               variant="outline"
               size="sm"
               className="focus-ring"
-              onClick={() => window.open("/cv-carlos-jose.pdf", "_blank")}
+              onClick={() =>
+                window.open("https://drive.google.com/tu-link-aqui", "_blank")
+              }
             >
               <Download className="h-4 w-4" />
-              Descargar CV
+              Ver CV
             </Button>
+
+            {/* Solicitar CV por email */}
+            <Button
+              variant="outline"
+              size="sm"
+              className="focus-ring"
+              onClick={() =>
+                (window.location.href =
+                  "mailto:contacto@carlosjose.dev?subject=Solicitud%20CV&body=Hola%20Carlos,%20me%20gustaría%20recibir%20tu%20currículum%20completo.")
+              }
+            >
+              Solicitar CV
+            </Button>
+            <SolicitarCVButton />
             <ThemeToggle />
           </div>
 

@@ -1,72 +1,85 @@
-import { useState } from "react"
-import { Mail, Phone, MapPin, Github, Linkedin, Video, Send, CheckCircle, XCircle } from "lucide-react"
-import { Button } from "@/components/ui/enhanced-button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
+import { useState } from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Video,
+  Send,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/enhanced-button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const socialLinks = [
   {
     name: "GitHub",
     icon: Github,
     url: "https://github.com/CarlosDev",
-    label: "Ver repositorios"
+    label: "Ver repositorios",
   },
   {
-    name: "LinkedIn", 
+    name: "LinkedIn",
     icon: Linkedin,
     url: "https://linkedin.com/in/carlosdev",
-    label: "Conectar en LinkedIn"
+    label: "Conectar en LinkedIn",
   },
   {
     name: "TikTok",
     icon: Video,
-    url: "https://tiktok.com/@carlosdev", 
-    label: "Seguir en TikTok"
-  }
-]
+    url: "https://tiktok.com/@carlosdev",
+    label: "Seguir en TikTok",
+  },
+];
 
 interface FormData {
-  name: string
-  email: string
-  message: string
+  name: string;
+  email: string;
+  message: string;
 }
 
 export function Contact() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    message: ""
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
     setTimeout(() => {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       toast({
         title: "Mensaje enviado",
         description: "Gracias por tu mensaje. Te responderé pronto.",
         duration: 5000,
-      })
-      
-      // Reset form
-      setFormData({ name: "", email: "", message: "" })
-    }, 1500)
-  }
+      });
 
-  const isFormValid = formData.name.trim() && formData.email.trim() && formData.message.trim()
+      // Reset form
+      setFormData({ name: "", email: "", message: "" });
+    }, 1500);
+  };
+
+  const isFormValid =
+    formData.name.trim() && formData.email.trim() && formData.message.trim();
 
   return (
     <section id="contact" className="py-20 lg:py-32">
@@ -78,7 +91,8 @@ export function Contact() {
               <span className="gradient-text">Contacto</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Cuéntame tu idea y te ayudo a convertirla en un producto sólido y seguro.
+              Cuéntame tu idea y te ayudo a convertirla en un producto sólido y
+              seguro.
             </p>
           </div>
 
@@ -89,7 +103,7 @@ export function Contact() {
                 <h3 className="font-heading text-xl font-semibold mb-6 text-foreground">
                   ¿Tienes un proyecto en mente?
                 </h3>
-                
+
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-4">
                     <div className="p-2 bg-primary/10 rounded-lg">
@@ -97,11 +111,11 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Email</p>
-                      <a 
-                        href="mailto:carlos@example.com" 
+                      <a
+                        href="mailto:contacto@carlosjose.dev"
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
-                        carlos@example.com
+                        contacto@carlosjose.dev
                       </a>
                     </div>
                   </div>
@@ -112,7 +126,9 @@ export function Contact() {
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Ubicación</p>
-                      <p className="text-muted-foreground">España (Remoto disponible)</p>
+                      <p className="text-muted-foreground">
+                        España (Remoto disponible)
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -123,10 +139,10 @@ export function Contact() {
                 <h4 className="font-heading font-semibold mb-4 text-foreground">
                   Sígueme en redes
                 </h4>
-                
+
                 <div className="flex gap-4">
                   {socialLinks.map((social) => {
-                    const Icon = social.icon
+                    const Icon = social.icon;
                     return (
                       <a
                         key={social.name}
@@ -141,7 +157,7 @@ export function Contact() {
                           {social.name}
                         </span>
                       </a>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -157,7 +173,8 @@ export function Contact() {
                       Respuesta garantizada en 24h
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      Te responderé personalmente para discutir tu proyecto y cómo puedo ayudarte.
+                      Te responderé personalmente para discutir tu proyecto y
+                      cómo puedo ayudarte.
                     </p>
                   </div>
                 </div>
@@ -169,7 +186,10 @@ export function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-card-foreground mb-2"
+                    >
                       Nombre *
                     </label>
                     <Input
@@ -185,7 +205,10 @@ export function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-card-foreground mb-2"
+                    >
                       Email *
                     </label>
                     <Input
@@ -202,7 +225,10 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-card-foreground mb-2"
+                  >
                     Mensaje *
                   </label>
                   <Textarea
@@ -242,5 +268,5 @@ export function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }
