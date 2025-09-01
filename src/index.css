@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Portfolio Design System for Carlos José */
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    /* Brand Colors */
+    --primary: 217 91% 60%;
+    --primary-dark: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 215 25% 27%;
+
+    /* Interactive */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(243 75% 59%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(158 64% 52%) 0%, hsl(217 91% 60%) 100%);
+    --gradient-background: radial-gradient(ellipse at top, hsl(217 91% 60% / 0.05) 0%, transparent 50%);
+    
+    /* Shadows */
+    --shadow-primary: 0 4px 14px 0 hsl(217 91% 60% / 0.15);
+    --shadow-accent: 0 4px 14px 0 hsl(158 64% 52% / 0.15);
+    --shadow-soft: 0 2px 8px 0 hsl(215 25% 27% / 0.08);
+    --shadow-medium: 0 4px 16px 0 hsl(215 25% 27% / 0.12);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Base Colors */
+    --background: 215 28% 5%;
+    --foreground: 210 40% 98%;
+
+    /* Brand Colors maintain vibrancy in dark mode */
+    --primary: 217 91% 60%;
+    --primary-dark: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Surface Colors */
+    --card: 215 28% 8%;
+    --card-foreground: 210 40% 98%;
+    
+    --muted: 215 28% 12%;
+    --muted-foreground: 215 20% 65%;
+    
+    --secondary: 215 28% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Interactive */
+    --border: 215 28% 18%;
+    --input: 215 28% 18%;
+    --ring: 217 91% 60%;
+
+    /* Gradients for dark mode */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(243 75% 59%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(158 64% 52%) 0%, hsl(217 91% 60%) 100%);
+    --gradient-background: radial-gradient(ellipse at top, hsl(217 91% 60% / 0.08) 0%, transparent 50%);
+    
+    /* Enhanced shadows for dark mode */
+    --shadow-primary: 0 4px 20px 0 hsl(217 91% 60% / 0.25);
+    --shadow-accent: 0 4px 20px 0 hsl(158 64% 52% / 0.25);
+    --shadow-soft: 0 2px 12px 0 hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 4px 20px 0 hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--gradient-background);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', system-ui, sans-serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  /* Gradient text utility */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: hsl(var(--background) / 0.8);
+    border: 1px solid hsl(var(--border) / 0.3);
+  }
+
+  /* Hover glow effect */
+  .hover-glow {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-primary);
+    transform: translateY(-2px);
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Active link underline */
+  .nav-link {
+    @apply relative transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300;
+    content: '';
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  /* Blob animations */
+  .blob {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: blob 7s ease-in-out infinite;
+  }
+
+  .blob-delay {
+    animation-delay: -3s;
+  }
+
+  @keyframes blob {
+    0% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    25% {
+      border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    }
+    50% {
+      border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+    }
+    75% {
+      border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
