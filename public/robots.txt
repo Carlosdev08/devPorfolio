@@ -1,3 +1,4 @@
+Sitemap: https://carlosjose.dev/sitemap.xml
 User-agent: Googlebot
 Allow: /
 
