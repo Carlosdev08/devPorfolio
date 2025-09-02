@@ -51,8 +51,8 @@ export function Footer() {
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
                   Desarrollador Full Stack & Pentester Web especializado en
-                  crear soluciones modernas y seguras. Más de 15 años de
-                  experiencia transformada en código.
+                  crear soluciones modernas y seguras. Si puedes imaginarlo,
+                  entonces puedes codearlo!
                 </p>
               </div>
 

@@ -19,7 +19,7 @@ const projects = [
     title: "Security Audit Platform",
     description:
       "Plataforma de auditoría de seguridad web con generación automática de reportes y recomendaciones de hardening para aplicaciones web.",
-    tech: ["PHP", "Laravel", "MySQL", "Security Tools"],
+    tech: ["PHP", "Laravel", "MySQL", "Security Tools", "TypeScript"],
     category: "Pentesting",
     icon: Shield,
     status: "En construcción",
@@ -34,14 +34,14 @@ const projects = [
     category: "Frontend",
     icon: Code,
     status: "Finalizado",
-    gradient: "from-primary-dark to-accent",
+    gradient: "from-primary-dark to-accent bg-transparent",
   },
   {
     id: 4,
     title: "API REST Segura",
     description:
       "API REST con autenticación JWT, rate limiting, validación de datos y documentación automática. Preparada para entornos de producción.",
-    tech: ["Laravel", "PHP", "JWT", "MySQL", "Swagger"],
+    tech: ["Laravel", "PHP", "JWT", "MySQL", "Swagger", "TypeScript"],
     category: "Backend",
     icon: Code,
     status: "En construcción",
@@ -77,7 +77,7 @@ export function Projects() {
                 >
                   {/* Project header with gradient */}
                   <div
-                    className={`relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex items-center justify-center`}
+                    className={`relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex items-center justify-center bg-transparent`}
                   >
                     {/* Background pattern */}
                     <div className="absolute inset-0 opacity-10">
@@ -94,7 +94,7 @@ export function Projects() {
 
                     {/* Status badge */}
                     <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur rounded-full border border-white/30">
-                      <span className="text-white text-xs font-medium">
+                      <span className="text-blue text-xs font-medium">
                         {project.status}
                       </span>
                     </div>
@@ -123,7 +123,7 @@ export function Projects() {
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded"
+                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-purple-100 px-2 py-1 rounded"
                         >
                           {techIcons[keyFor(tech)] ?? null}
                           {tech}

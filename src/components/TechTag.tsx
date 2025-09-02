@@ -16,6 +16,7 @@ import {
 } from "react-icons/si";
 import { GiShield } from "react-icons/gi";
 import { IoLogoGithub } from "react-icons/io5";
+import { GrMysql } from "react-icons/gr";
 
 const techIcons: Record<string, JSX.Element> = {
   HTML5: <FaHtml5 className="text-orange-500" />,
@@ -28,11 +29,12 @@ const techIcons: Record<string, JSX.Element> = {
   SQL: <SiMysql className="text-blue-600" />,
   React: <FaReact className="text-cyan-400" />,
   "Next.js": <SiNextdotjs className="text-gray-200" />,
-  Laravel: <SiLaravel className="text-red-500" />,
+  Laravel: <SiLaravel className="text-red-500 bg bg-transparent" />,
   "Node.js": <FaNodeJs className="text-green-500" />,
   Pentesting: <GiShield className="text-red-600" />,
   Security: <GiShield className="text-green-600" />,
   Git: <IoLogoGithub className="text-green-600" />,
+  MySQL: <GrMysql className="text-slate-300" />,
 };
 
 type TechTagProps = {
