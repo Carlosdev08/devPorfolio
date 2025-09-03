@@ -143,12 +143,8 @@ export function Footer() {
           {/* Bottom section */}
           <div className="pt-8 border-t border-border/30 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>© {currentYear} Carlos José</span>
-              <span className="hidden sm:inline">·</span>
-              <span className="flex items-center gap-1">
-                Hecho con
-                <span className="text-red-500 animate-pulse">♥</span>y código
-                seguro
+              <span>
+                © {currentYear} Carlos José. Todos los derechos reservados
               </span>
             </div>
 
