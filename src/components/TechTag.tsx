@@ -34,7 +34,7 @@ const techIcons: Record<string, JSX.Element> = {
   Pentesting: <GiShield className="text-red-600" />,
   Security: <GiShield className="text-green-600" />,
   Git: <IoLogoGithub className="text-green-600" />,
-  MySQL: <GrMysql className="text-slate-300" />,
+  MySQL: <GrMysql className="text-slate-600" />,
 };
 
 type TechTagProps = {
