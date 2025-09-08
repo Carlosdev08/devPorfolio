@@ -10,7 +10,6 @@ const footerLinks = {
   recursos: [
     { name: "Experiencia", href: "#experience" },
     { name: "Contacto", href: "#contact" },
-    { name: "Descargar CV", href: "/cv-carlos-jose.pdf", external: true },
   ],
 };
 
@@ -112,28 +111,16 @@ export function Footer() {
               <ul className="space-y-2">
                 {footerLinks.recursos.map((link) => (
                   <li key={link.name}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-1"
-                      >
-                        {link.name}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : (
-                      <a
-                        href={link.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToSection(link.href);
-                        }}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                      >
-                        {link.name}
-                      </a>
-                    )}
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(link.href);
+                      }}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                    >
+                      {link.name}
+                    </a>
                   </li>
                 ))}
               </ul>

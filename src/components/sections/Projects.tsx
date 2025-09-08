@@ -1,8 +1,26 @@
 import { ExternalLink, Github, Shield, ShoppingBag, Code } from "lucide-react";
 import { Button } from "@/components/ui/enhanced-button";
 import { keyFor, techIcons } from "../ui/techIcons";
+import { Link, useNavigate } from "react-router-dom";
 
-const projects = [
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  category: string;
+  icon: React.ComponentType<any>;
+  status: "En construcción" | "Finalizado";
+  gradient: string;
+  /** Página interna tipo /proyectos/3 (opcional) */
+  caseRoute?: string;
+  /** Demo o página del proyecto (opcional) */
+  link?: string;
+  /** Repositorio GitHub (opcional) */
+  repo?: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
     title: "E-commerce Modular",
@@ -13,6 +31,8 @@ const projects = [
     icon: ShoppingBag,
     status: "En construcción",
     gradient: "from-primary to-primary-dark",
+    caseRoute: "/proyectos/ecommerce-modular",
+    repo: "", // cuando lo tengas
   },
   {
     id: 2,
@@ -24,6 +44,7 @@ const projects = [
     icon: Shield,
     status: "En construcción",
     gradient: "from-accent to-primary",
+    caseRoute: "/proyectos/security-audit",
   },
   {
     id: 3,
@@ -33,8 +54,12 @@ const projects = [
     tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
     category: "Frontend",
     icon: Code,
+    imagen: "../../../public/images/porfolioCarlos.png",
     status: "Finalizado",
     gradient: "from-primary-dark to-accent bg-transparent",
+    link: "https://carlosjose.dev",
+    repo: "https://github.com/Carlosdev08/devPorfolio",
+    caseRoute: "/proyectos/portfolio", // si tienes página interna
   },
   {
     id: 4,
@@ -46,10 +71,30 @@ const projects = [
     icon: Code,
     status: "En construcción",
     gradient: "from-accent to-primary-dark",
+    caseRoute: "/proyectos/api-rest-segura",
+    repo: "", // pendiente
   },
 ];
 
 export function Projects() {
+  const navigate = useNavigate();
+
+  const openExternal = (url?: string) => {
+    if (!url) return;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleViewCase = (p: Project) => {
+    if (p.caseRoute) {
+      navigate(p.caseRoute);
+    } else if (p.link) {
+      openExternal(p.link);
+    }
+    // si no hay nada, no hacemos nada (o podrías mostrar un toast)
+  };
+
+  const handleGithub = (p: Project) => openExternal(p.repo);
+
   return (
     <section id="projects" className="py-20 lg:py-32">
       <div className="container mx-auto px-6 lg:px-8">
@@ -67,8 +112,10 @@ export function Projects() {
 
           {/* Projects grid */}
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => {
+            {projects.map((project) => {
               const Icon = project.icon;
+              const caseEnabled = Boolean(project.caseRoute || project.link);
+              const repoEnabled = Boolean(project.repo);
 
               return (
                 <div
@@ -89,7 +136,7 @@ export function Projects() {
 
                     {/* Project icon */}
                     <div className="relative z-10 bg-white/20 backdrop-blur p-4 rounded-2xl">
-                      <Icon className="h-12 w-12 text-white" />
+                      <Icon className="h-12 w-12" />
                     </div>
 
                     {/* Status badge */}
@@ -118,12 +165,11 @@ export function Projects() {
                     </div>
 
                     {/* Tech stack */}
-
-                    <div className="flex flex-wrap gap-2 cursor-pointer">
+                    <div className="flex flex-wrap gap-2">
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-purple-100 px-2 py-1 rounded"
+                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-purple-500 px-2 py-1 rounded"
                         >
                           {techIcons[keyFor(tech)] ?? null}
                           {tech}
@@ -133,27 +179,30 @@ export function Projects() {
 
                     {/* Action buttons */}
                     <div className="flex gap-3 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 focus-ring"
-                        onClick={() => {
-                          // Placeholder for navigation to project detail
-                          console.log(`Ver caso: ${project.title}`);
-                        }}
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Ver caso
-                      </Button>
+                      {project.link && (
+                        <Link to={project.link}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            Ver caso
+                          </Button>
+                        </Link>
+                      )}
 
                       <Button
                         variant="ghost"
                         size="sm"
                         className="focus-ring"
-                        onClick={() => {
-                          // Placeholder for GitHub link
-                          console.log(`GitHub: ${project.title}`);
-                        }}
+                        onClick={() => handleGithub(project)}
+                        disabled={!repoEnabled}
+                        aria-label={`Abrir GitHub de ${project.title}`}
+                        title={
+                          repoEnabled
+                            ? "Ver código en GitHub"
+                            : "Sin repositorio"
+                        }
                       >
                         <Github className="h-4 w-4" />
                       </Button>
