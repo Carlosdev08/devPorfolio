@@ -1,7 +1,7 @@
 import { ExternalLink, Github, Shield, ShoppingBag, Code } from "lucide-react";
 import { Button } from "@/components/ui/enhanced-button";
 import { keyFor, techIcons } from "../ui/techIcons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Project = {
   id: number;
@@ -12,27 +12,28 @@ type Project = {
   icon: React.ComponentType<any>;
   status: "En construcción" | "Finalizado";
   gradient: string;
-  /** Página interna tipo /proyectos/3 (opcional) */
+  image: string;
   caseRoute?: string;
-  /** Demo o página del proyecto (opcional) */
+  imageAlt?: string;
   link?: string;
-  /** Repositorio GitHub (opcional) */
-  repo?: string;
+  repo: "https://github.com/Carlosdev08/devPorfolio";
 };
-
+import portfolioImg from "/images/porfolioCarlos.png";
 const projects: Project[] = [
   {
-    id: 1,
-    title: "E-commerce Modular",
+    id: 3,
+    title: "Portfolio Interactivo",
     description:
-      "Aplicación de comercio electrónico con panel de administración, sistema de pagos y gestión de inventario. Enfoque en experiencia de usuario y seguridad.",
-    tech: ["React", "Next.js", "TypeScript", "Stripe", "Laravel"],
-    category: "Full Stack",
-    icon: ShoppingBag,
-    status: "En construcción",
-    gradient: "from-primary to-primary-dark",
-    caseRoute: "/proyectos/ecommerce-modular",
-    repo: "", // cuando lo tengas
+      "Portfolio personal con animaciones, modo oscuro y optimizaciones de rendimiento.",
+    tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
+    category: "Frontend",
+    icon: Code,
+    status: "Finalizado",
+    gradient: "from-primary-dark to-accent bg-transparent",
+    link: "https://carlosjose.dev",
+    repo: "https://github.com/Carlosdev08/devPorfolio",
+    image: portfolioImg,
+    imageAlt: "Portada del portfolio de Carlos José",
   },
   {
     id: 2,
@@ -42,10 +43,13 @@ const projects: Project[] = [
     tech: ["PHP", "Laravel", "MySQL", "Security Tools", "TypeScript"],
     category: "Pentesting",
     icon: Shield,
+    image: portfolioImg,
     status: "En construcción",
     gradient: "from-accent to-primary",
     caseRoute: "/proyectos/security-audit",
+    repo: "https://github.com/Carlosdev08/devPorfolio",
   },
+
   {
     id: 3,
     title: "Portfolio Interactivo",
@@ -54,7 +58,7 @@ const projects: Project[] = [
     tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
     category: "Frontend",
     icon: Code,
-    imagen: "../../../public/images/porfolioCarlos.png",
+    image: portfolioImg,
     status: "Finalizado",
     gradient: "from-primary-dark to-accent bg-transparent",
     link: "https://carlosjose.dev",
@@ -69,10 +73,11 @@ const projects: Project[] = [
     tech: ["Laravel", "PHP", "JWT", "MySQL", "Swagger", "TypeScript"],
     category: "Backend",
     icon: Code,
+    image: portfolioImg,
     status: "En construcción",
     gradient: "from-accent to-primary-dark",
     caseRoute: "/proyectos/api-rest-segura",
-    repo: "", // pendiente
+    repo: "https://github.com/Carlosdev08/devPorfolio",
   },
 ];
 
@@ -179,17 +184,23 @@ export function Projects() {
 
                     {/* Action buttons */}
                     <div className="flex gap-3 pt-2">
-                      {project.link && (
-                        <Link to={project.link}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="flex-1"
-                          >
-                            Ver caso
-                          </Button>
-                        </Link>
-                      )}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 focus-ring"
+                        onClick={() => handleViewCase(project)}
+                        disabled={!caseEnabled}
+                        aria-label={`Ver caso de ${project.title}`}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        <a
+                          href="http://carlosjose.dev"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Ver caso
+                        </a>
+                      </Button>
 
                       <Button
                         variant="ghost"
