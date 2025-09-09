@@ -3,53 +3,29 @@ import { Button } from "@/components/ui/enhanced-button";
 import { keyFor, techIcons } from "../ui/techIcons";
 import { useNavigate } from "react-router-dom";
 
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  tech: string[];
-  category: string;
-  icon: React.ComponentType<any>;
-  status: "En construcción" | "Finalizado";
-  gradient: string;
-  image: string;
-  caseRoute?: string;
-  imageAlt?: string;
-  link?: string;
-  repo: "https://github.com/Carlosdev08/devPorfolio";
-};
-import portfolioImg from "/images/porfolioCarlos.png";
-const projects: Project[] = [
+const projects = [
   {
-    id: 3,
-    title: "Portfolio Interactivo",
+    id: 1,
+    title: "E-commerce Modular",
     description:
-      "Portfolio personal con animaciones, modo oscuro y optimizaciones de rendimiento.",
-    tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
-    category: "Frontend",
-    icon: Code,
-    status: "Finalizado",
-    gradient: "from-primary-dark to-accent bg-transparent",
-    link: "https://carlosjose.dev",
-    repo: "https://github.com/Carlosdev08/devPorfolio",
-    image: portfolioImg,
-    imageAlt: "Portada del portfolio de Carlos José",
+      "Aplicación de comercio electrónico con panel de administración, sistema de pagos y gestión de inventario. Enfoque en experiencia de usuario y seguridad.",
+    tech: ["React", "Next.js", "TypeScript", "Stripe", "Laravel"],
+    category: "Full Stack",
+    icon: ShoppingBag,
+    status: "En construcción",
+    gradient: "from-primary to-primary-dark",
   },
   {
     id: 2,
     title: "Security Audit Platform",
     description:
       "Plataforma de auditoría de seguridad web con generación automática de reportes y recomendaciones de hardening para aplicaciones web.",
-    tech: ["PHP", "Laravel", "MySQL", "Security Tools", "TypeScript"],
+    tech: ["PHP", "Laravel", "MySQL", "Security Tools"],
     category: "Pentesting",
     icon: Shield,
-    image: portfolioImg,
     status: "En construcción",
     gradient: "from-accent to-primary",
-    caseRoute: "/proyectos/security-audit",
-    repo: "https://github.com/Carlosdev08/devPorfolio",
   },
-
   {
     id: 3,
     title: "Portfolio Interactivo",
@@ -58,48 +34,23 @@ const projects: Project[] = [
     tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
     category: "Frontend",
     icon: Code,
-    image: portfolioImg,
     status: "Finalizado",
-    gradient: "from-primary-dark to-accent bg-transparent",
-    link: "https://carlosjose.dev",
-    repo: "https://github.com/Carlosdev08/devPorfolio",
-    caseRoute: "/proyectos/portfolio", // si tienes página interna
+    gradient: "from-primary-dark to-accent",
   },
   {
     id: 4,
     title: "API REST Segura",
     description:
       "API REST con autenticación JWT, rate limiting, validación de datos y documentación automática. Preparada para entornos de producción.",
-    tech: ["Laravel", "PHP", "JWT", "MySQL", "Swagger", "TypeScript"],
+    tech: ["Laravel", "PHP", "JWT", "MySQL", "Swagger"],
     category: "Backend",
     icon: Code,
-    image: portfolioImg,
     status: "En construcción",
     gradient: "from-accent to-primary-dark",
-    caseRoute: "/proyectos/api-rest-segura",
-    repo: "https://github.com/Carlosdev08/devPorfolio",
   },
 ];
 
 export function Projects() {
-  const navigate = useNavigate();
-
-  const openExternal = (url?: string) => {
-    if (!url) return;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const handleViewCase = (p: Project) => {
-    if (p.caseRoute) {
-      navigate(p.caseRoute);
-    } else if (p.link) {
-      openExternal(p.link);
-    }
-    // si no hay nada, no hacemos nada (o podrías mostrar un toast)
-  };
-
-  const handleGithub = (p: Project) => openExternal(p.repo);
-
   return (
     <section id="projects" className="py-20 lg:py-32">
       <div className="container mx-auto px-6 lg:px-8">
@@ -117,10 +68,8 @@ export function Projects() {
 
           {/* Projects grid */}
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project) => {
+            {projects.map((project, index) => {
               const Icon = project.icon;
-              const caseEnabled = Boolean(project.caseRoute || project.link);
-              const repoEnabled = Boolean(project.repo);
 
               return (
                 <div
@@ -129,7 +78,7 @@ export function Projects() {
                 >
                   {/* Project header with gradient */}
                   <div
-                    className={`relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex items-center justify-center bg-transparent`}
+                    className={`relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex items-center justify-center`}
                   >
                     {/* Background pattern */}
                     <div className="absolute inset-0 opacity-10">
@@ -141,12 +90,12 @@ export function Projects() {
 
                     {/* Project icon */}
                     <div className="relative z-10 bg-white/20 backdrop-blur p-4 rounded-2xl">
-                      <Icon className="h-12 w-12" />
+                      <Icon className="h-12 w-12 text-white" />
                     </div>
 
                     {/* Status badge */}
                     <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur rounded-full border border-white/30">
-                      <span className="text-blue text-xs font-medium">
+                      <span className="text-white text-xs font-medium">
                         {project.status}
                       </span>
                     </div>
@@ -170,11 +119,12 @@ export function Projects() {
                     </div>
 
                     {/* Tech stack */}
-                    <div className="flex flex-wrap gap-2">
+
+                    <div className="flex flex-wrap gap-2 cursor-pointer">
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-purple-500 px-2 py-1 rounded"
+                          className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded"
                         >
                           {techIcons[keyFor(tech)] ?? null}
                           {tech}
@@ -188,32 +138,23 @@ export function Projects() {
                         variant="outline"
                         size="sm"
                         className="flex-1 focus-ring"
-                        onClick={() => handleViewCase(project)}
-                        disabled={!caseEnabled}
-                        aria-label={`Ver caso de ${project.title}`}
+                        onClick={() => {
+                          // Placeholder for navigation to project detail
+                          console.log(`Ver caso: ${project.title}`);
+                        }}
                       >
                         <ExternalLink className="h-4 w-4" />
-                        <a
-                          href="http://carlosjose.dev"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Ver caso
-                        </a>
+                        <a href="https://carlosjose.dev">Ver caso</a>
                       </Button>
 
                       <Button
                         variant="ghost"
                         size="sm"
                         className="focus-ring"
-                        onClick={() => handleGithub(project)}
-                        disabled={!repoEnabled}
-                        aria-label={`Abrir GitHub de ${project.title}`}
-                        title={
-                          repoEnabled
-                            ? "Ver código en GitHub"
-                            : "Sin repositorio"
-                        }
+                        onClick={() => {
+                          // Placeholder for GitHub link
+                          console.log(`GitHub: ${project.title}`);
+                        }}
                       >
                         <Github className="h-4 w-4" />
                       </Button>
