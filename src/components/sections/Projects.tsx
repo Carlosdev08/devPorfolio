@@ -1,7 +1,7 @@
 import { ExternalLink, Github, Shield, ShoppingBag, Code } from "lucide-react";
 import { Button } from "@/components/ui/enhanced-button";
 import { keyFor, techIcons } from "../ui/techIcons";
-import { useNavigate } from "react-router-dom";
+import porfolioCarlos from "../../../public/images/porfolioCarlos.png";
 
 const projects = [
   {
@@ -28,14 +28,17 @@ const projects = [
   },
   {
     id: 3,
+    image: porfolioCarlos,
     title: "Portfolio Interactivo",
     description:
       "Portfolio personal con animaciones avanzadas, modo oscuro y optimizaciones de rendimiento. Incluye sistema de contacto integrado.",
     tech: ["React", "Tailwind", "Framer Motion", "TypeScript"],
     category: "Frontend",
-    icon: Code,
     status: "Finalizado",
     gradient: "from-primary-dark to-accent",
+    imageAlt: "Captura del portfolio de Carlos José",
+    link: "https://carlosjose.dev",
+    repo: "https://github.com/Carlosdev08/devPorfolio",
   },
   {
     id: 4,
@@ -80,6 +83,15 @@ export function Projects() {
                   <div
                     className={`relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex items-center justify-center`}
                   >
+                    {project.image && (
+                      <img
+                        src={project.image}
+                        alt={project.imageAlt || project.title}
+                        className="absolute inset-0 h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                     {/* Background pattern */}
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white/30 rounded" />
@@ -89,9 +101,7 @@ export function Projects() {
                     </div>
 
                     {/* Project icon */}
-                    <div className="relative z-10 bg-white/20 backdrop-blur p-4 rounded-2xl">
-                      <Icon className="h-12 w-12 text-white" />
-                    </div>
+                    <div className="relative z-10 bg-white/20 backdrop-blur p-4 rounded-2xl"></div>
 
                     {/* Status badge */}
                     <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur rounded-full border border-white/30">
