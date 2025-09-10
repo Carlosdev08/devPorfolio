@@ -149,7 +149,6 @@ export function Projects() {
                         size="sm"
                         className="flex-1 focus-ring"
                         onClick={() => {
-                          // Placeholder for navigation to project detail
                           console.log(`Ver caso: ${project.title}`);
                         }}
                       >
