@@ -27,6 +27,7 @@ export const AnalyticsPanel = () => {
     suspiciousVisits: 0,
     averageTimeOnPage: 0,
     uniqueVisitors: 0,
+    vipVisits: 0,
   });
 
   useEffect(() => {
@@ -55,6 +56,11 @@ export const AnalyticsPanel = () => {
       visitorInits.map((d: AnalyticsData) => d.data.sessionId)
     );
 
+    // Contar VIPs
+    const vipCount = visitorInits.filter(
+      (d: AnalyticsData) => d.data.classification?.isVIP
+    ).length;
+
     const avgTime =
       behaviorUpdates.length > 0
         ? behaviorUpdates.reduce(
@@ -69,6 +75,7 @@ export const AnalyticsPanel = () => {
       suspiciousVisits: suspiciousCount,
       averageTimeOnPage: Math.round(avgTime),
       uniqueVisitors: uniqueSessionIds.size,
+      vipVisits: vipCount,
     });
   };
 
@@ -81,6 +88,7 @@ export const AnalyticsPanel = () => {
         suspiciousVisits: 0,
         averageTimeOnPage: 0,
         uniqueVisitors: 0,
+        vipVisits: 0,
       });
     }
   };
@@ -149,6 +157,20 @@ export const AnalyticsPanel = () => {
                 <X className="h-5 w-5" />
               </Button>
             </div>
+
+            {/* VIP Counter GIGANTE */}
+            {stats.vipVisits > 0 && (
+              <div className="mx-6 mt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl p-8 shadow-2xl animate-pulse">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-bold text-lg mb-2">👑 VISITAS VIP</p>
+                    <p className="text-white text-7xl font-black">{stats.vipVisits}</p>
+                    <p className="text-yellow-100 text-sm mt-3">💼 Recruiters & Developers</p>
+                  </div>
+                  <div className="text-8xl animate-bounce">🎉</div>
+                </div>
+              </div>
+            )}
 
             {/* Stats Grid */}
             <div className="p-6 grid grid-cols-2 gap-4">
