@@ -13,6 +13,9 @@ dist-ssr
 *.local
 .env.local
 
+# Archivos de configuración sensibles
+cambiar-password.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
