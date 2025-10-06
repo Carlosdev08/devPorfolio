@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { classifyVisitor, type VisitorClassification } from '@/utils/visitorClassifier';
 
 interface VisitorData {
   sessionId: string;
@@ -12,6 +13,7 @@ interface VisitorData {
   timezone: string;
   referrer: string;
   platform: string;
+  classification: VisitorClassification;
 }
 
 interface BehaviorMetrics {
@@ -63,6 +65,16 @@ export const useVisitorTracking = () => {
 
   // Collect initial visitor data
   useEffect(() => {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const referrer = document.referrer;
+    
+    // Clasificar al visitante
+    const classification = classifyVisitor({
+      referrer,
+      userAgent: navigator.userAgent,
+      timezone,
+    });
+
     const data: VisitorData = {
       sessionId: getSessionId(),
       timestamp: Date.now(),
@@ -72,9 +84,10 @@ export const useVisitorTracking = () => {
         height: window.screen.height,
       },
       language: navigator.language,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      referrer: document.referrer,
+      timezone,
+      referrer,
       platform: navigator.platform,
+      classification,
     };
 
     setVisitorData(data);
