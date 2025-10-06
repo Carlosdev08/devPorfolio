@@ -26,8 +26,8 @@ const App = () => (
           </Routes>
         </BrowserRouter>
         
-        {/* Panel de Analytics (solo visible en desarrollo) */}
-        {import.meta.env.DEV && <AnalyticsPanel />}
+        {/* Panel de Analytics (protegido con autenticación) */}
+        <AnalyticsPanel />
       </VisitorGuardProvider>
     </TooltipProvider>
   </QueryClientProvider>
