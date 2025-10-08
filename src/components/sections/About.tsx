@@ -95,15 +95,6 @@ export function About() {
                   </div>
                 </div>
               </div>
-
-              <Button
-                variant="outline"
-                onClick={() => window.open("/cv-carlos-jose.pdf", "_blank")}
-                className="focus-ring hover:shadow-primary"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Ver CV completo
-              </Button>
             </div>
           </div>
         </div>

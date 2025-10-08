@@ -60,15 +60,6 @@ export function Hero() {
               <Mail className="h-5 w-5" />
               Contactar
             </Button>
-            <Button
-              variant="outline"
-              size="xl"
-              onClick={() => window.open("/cv-carlos-jose.pdf", "_blank")}
-              className="focus-ring"
-            >
-              <Download className="h-5 w-5" />
-              Descargar CV
-            </Button>
           </div>
 
           {/* Credibility badges */}
