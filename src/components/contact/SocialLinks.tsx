@@ -5,13 +5,13 @@ const DEFAULT: Item[] = [
   {
     name: "GitHub",
     icon: Github,
-    url: "https://github.com/CarlosDev",
+    url: "https://github.com/carlosdev08",
     label: "Ver repositorios",
   },
   {
     name: "LinkedIn",
     icon: Linkedin,
-    url: "https://linkedin.com/in/carlosdev",
+    url: "https://linkedin.com/in/carlosdeljesus",
     label: "Conectar en LinkedIn",
   },
 ];

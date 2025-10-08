@@ -38,7 +38,7 @@ const projects = [
     gradient: "from-primary-dark to-accent",
     imageAlt: "Captura del portfolio de Carlos José",
     link: "https://carlosjose.dev",
-    repo: "https://github.com/Carlosdev08/devPorfolio",
+    repo: "https://github.com/carlosdev08/devPorfolio",
   },
   {
     id: 4,
