@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { classifyVisitor, type VisitorClassification } from '@/utils/visitorClassifier';
+import { useVIPNotifications } from './useVIPNotifications';
 
 interface VisitorData {
   sessionId: string;
@@ -32,6 +33,7 @@ interface SuspicionScore {
 }
 
 export const useVisitorTracking = () => {
+  const { notifyVIPVisit } = useVIPNotifications();
   const [visitorData, setVisitorData] = useState<VisitorData | null>(null);
   const [behaviorMetrics, setBehaviorMetrics] = useState<BehaviorMetrics>({
     mouseMovements: 0,
@@ -92,9 +94,14 @@ export const useVisitorTracking = () => {
 
     setVisitorData(data);
 
+    // Notificar si es un visitante VIP
+    if (classification.isVIP) {
+      notifyVIPVisit(classification);
+    }
+
     // Send to your analytics endpoint (silently)
     sendToAnalytics('visitor_init', data);
-  }, []);
+  }, [notifyVIPVisit]);
 
   // Track mouse movements
   useEffect(() => {
