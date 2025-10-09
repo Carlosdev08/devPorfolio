@@ -1,15 +1,37 @@
 import { Github, Linkedin, Video, ExternalLink } from "lucide-react";
 
-const footerLinks = {
+// Tipos para mayor seguridad
+type FooterLink = {
+  name: string;
+  href: string;
+  external?: boolean;
+};
+
+type FooterLinks = {
+  navegacion: FooterLink[];
+  recursosUtiles: FooterLink[];
+  contacto: FooterLink[];
+};
+
+// Enlaces organizados por categoría
+const footerLinks: FooterLinks = {
   navegacion: [
     { name: "Inicio", href: "#inicio" },
     { name: "Sobre mí", href: "#about" },
     { name: "Habilidades", href: "#skills" },
     { name: "Proyectos", href: "#projects" },
   ],
-  recursos: [
+  recursosUtiles: [
+    { name: "Documentación", href: "https://react.dev/", external: true },
+    { name: "Herramientas", href: "https://vitejs.dev/", external: true },
+    { name: "Templates", href: "https://ui.shadcn.com/", external: true },
+    { name: "Cheat Sheets", href: "https://devhints.io/", external: true },
+    { name: "TDD Guide", href: "https://martinfowler.com/bliki/TestDrivenDevelopment.html", external: true },
+    { name: "Testing Tools", href: "https://vitest.dev/", external: true },
+  ],
+  contacto: [
     { name: "Experiencia", href: "#experience" },
-    { name: "Contacto", href: "#contact" },
+    { name: "Contactar", href: "#contact" },
   ],
 };
 
@@ -46,7 +68,7 @@ export function Footer() {
             <div className="lg:col-span-2">
               <div className="mb-4">
                 <h3 className="font-heading text-2xl font-bold gradient-text mb-2">
-                  Carlos José
+                  CarlosDev
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
                   Desarrollador Full Stack & Pentester Web especializado en
@@ -106,10 +128,36 @@ export function Footer() {
             {/* Resource links */}
             <div>
               <h4 className="font-heading font-semibold text-foreground mb-4">
-                Recursos
+                Recursos Útiles
               </h4>
               <ul className="space-y-2">
-                {footerLinks.recursos.map((link) => (
+                {footerLinks.recursosUtiles.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      onClick={!link.external ? (e) => {
+                        e.preventDefault();
+                        scrollToSection(link.href);
+                      } : undefined}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-1"
+                    >
+                      {link.name}
+                      {link.external && <ExternalLink className="h-3 w-3" />}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Contact links */}
+            <div>
+              <h4 className="font-heading font-semibold text-foreground mb-4">
+                Contacto
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.contacto.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}

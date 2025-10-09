@@ -34,17 +34,17 @@ export function Hero() {
         />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Main heading */}
-          <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-fade-in">
             <span className="gradient-text">Full Stack Developer</span>
             <br />
             <span className="text-foreground">& Pentester Web</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed animate-slide-up">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed animate-slide-up px-2">
             Construyo soluciones web modernas y seguras: desarrollo + seguridad
             en un mismo perfil.
           </p>
@@ -63,23 +63,26 @@ export function Hero() {
           </div>
 
           {/* Credibility badges */}
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm animate-fade-in">
-            <div className="flex items-center gap-2 px-4 py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
-              <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <span className="text-card-foreground font-medium">
-                +15 años de experiencia profesional
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm animate-fade-in px-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent rounded-full animate-pulse" />
+              <span className="text-card-foreground font-medium whitespace-nowrap">
+                <span className="hidden sm:inline">+15 años de experiencia profesional</span>
+                <span className="sm:hidden">+15 años exp.</span>
               </span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span className="text-card-foreground font-medium">
-                React · Next.js · Laravel · PHP
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full animate-pulse" />
+              <span className="text-card-foreground font-medium whitespace-nowrap">
+                <span className="hidden md:inline">React · Next.js · Laravel · PHP</span>
+                <span className="md:hidden">React · Laravel · PHP</span>
               </span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
-              <div className="w-2 h-2 bg-primary-dark rounded-full animate-pulse" />
-              <span className="text-card-foreground font-medium">
-                Pentesting Web
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-card/80 rounded-full border border-border/50 backdrop-blur">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-dark rounded-full animate-pulse" />
+              <span className="text-card-foreground font-medium whitespace-nowrap">
+                <span className="hidden sm:inline">Pentesting Web</span>
+                <span className="sm:hidden">Pentesting</span>
               </span>
             </div>
           </div>

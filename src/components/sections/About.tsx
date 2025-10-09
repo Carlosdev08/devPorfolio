@@ -1,15 +1,12 @@
-import { ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/enhanced-button";
-
 export function About() {
   return (
-    <section id="about" className="py-20 lg:py-32">
-      <div className="container mx-auto px-6 lg:px-8">
+    <section id="about" className="py-12 sm:py-16 lg:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             {/* Avatar + efectos */}
-            <div className="relative">
-              <div className="relative mx-auto lg:mx-0 w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+            <div className="relative order-2 lg:order-1">
+              <div className="relative mx-auto lg:mx-0 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80">
                 {/* halo/gradiente detrás */}
                 <div
                   aria-hidden
@@ -22,17 +19,18 @@ export function About() {
                 />
                 {/* imagen */}
                 <img
-                  src="images/porgolio.png" // coloca tu archivo en /public/images/
+                  src="images/porgolio.png"
                   alt="Retrato profesional de Carlos José"
                   className="rounded-full object-cover shadow-xl shadow-black/20 w-full h-full"
                 />
 
                 {/* badges flotantes */}
-                <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full bg-accent text-accent-foreground text-xs sm:text-sm font-medium shadow-accent">
-                  🔐 Pentesting (en formación)
+                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-medium shadow-accent">
+                  <span className="hidden sm:inline">🔐 Pentesting (en formación)</span>
+                  <span className="sm:hidden">🔐 Pentesting</span>
                 </div>
                 <div
-                  className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-medium shadow-primary"
+                  className="absolute -bottom-2 -left-2 sm:-bottom-3 sm:-left-3 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-medium shadow-primary"
                   style={{ animationDelay: "0.35s" }}
                 >
                   💻 Full Stack
@@ -41,13 +39,13 @@ export function About() {
             </div>
 
             {/* Contenido */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6 order-1 lg:order-2">
               <div>
-                <h2 className="font-heading text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-foreground text-center lg:text-left">
                   Sobre <span className="gradient-text">mí</span>
                 </h2>
 
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6 text-center lg:text-left">
                   Soy Carlos José, desarrollador full stack con enfoque en
                   React, Next.js, Laravel y PHP. Actualmente estoy{" "}
                   <strong className="text-foreground">
@@ -59,10 +57,10 @@ export function About() {
                   en productos sólidos.
                 </p>
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-muted-foreground">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full mt-1.5 sm:mt-2 flex-shrink-0" />
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       <strong className="text-foreground">
                         Experiencia híbrida:
                       </strong>{" "}
@@ -71,9 +69,9 @@ export function About() {
                     </p>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-muted-foreground">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent rounded-full mt-1.5 sm:mt-2 flex-shrink-0" />
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       <strong className="text-foreground">
                         Seguridad en progreso:
                       </strong>{" "}
@@ -83,9 +81,9 @@ export function About() {
                     </p>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-primary-dark rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-muted-foreground">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-dark rounded-full mt-1.5 sm:mt-2 flex-shrink-0" />
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       <strong className="text-foreground">
                         Evolución continua:
                       </strong>{" "}
