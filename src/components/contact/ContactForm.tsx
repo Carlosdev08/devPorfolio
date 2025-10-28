@@ -45,18 +45,18 @@ const TIMELINE_OPTIONS = [
 ];
 
 const TECH_OPTIONS = [
-  "React",
-  "Vue",
-  "Angular",
-  "Node.js",
-  "Python",
-  "TypeScript",
-  "Next.js",
-  "WordPress",
-  "Shopify",
-  "Firebase",
-  "PostgreSQL",
-  "MongoDB",
+  { name: "React", icon: "⚛️" },
+  { name: "Vue", icon: "🟢" },
+  { name: "Angular", icon: "🅰️" },
+  { name: "Node.js", icon: "🟩" },
+  { name: "Python", icon: "🐍" },
+  { name: "TypeScript", icon: "🔷" },
+  { name: "Next.js", icon: "▲" },
+  { name: "WordPress", icon: "📝" },
+  { name: "Shopify", icon: "🛒" },
+  { name: "Firebase", icon: "🔥" },
+  { name: "PostgreSQL", icon: "🐘" },
+  { name: "MongoDB", icon: "🍃" },
 ];
 
 export function ContactForm({ endpoint }: { endpoint: string }) {
@@ -80,11 +80,11 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
       }),
   });
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const allTechs = [...selectedTechs, otherTech].filter(Boolean);
-    setTechnologies(allTechs);
-    submit();
+    const allTechs = [...selectedTechs, ...(otherTech ? otherTech.split(',').map(t => t.trim()) : [])].filter(Boolean);
+    // Pasar las tecnologías directamente al submit
+    await submit(allTechs);
   };
   
   const toggleTech = (tech: string) => {
@@ -300,21 +300,22 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
             <div className="flex flex-wrap gap-2 mb-3">
               {TECH_OPTIONS.map((tech) => (
                 <button
-                  key={tech}
+                  key={tech.name}
                   type="button"
-                  onClick={() => toggleTech(tech)}
+                  onClick={() => toggleTech(tech.name)}
                   className={
-                    selectedTechs.includes(tech)
-                      ? "px-3 py-1.5 text-sm rounded-full border-2 border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                      : "px-3 py-1.5 text-sm rounded-full border-2 border-border bg-background text-foreground hover:border-primary/50 transition-colors"
+                    selectedTechs.includes(tech.name)
+                      ? "px-3 py-1.5 text-sm rounded-full border-2 border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex items-center gap-1.5"
+                      : "px-3 py-1.5 text-sm rounded-full border-2 border-border bg-background text-foreground hover:border-primary/50 transition-colors flex items-center gap-1.5"
                   }
                 >
-                  {tech}
+                  <span>{tech.icon}</span>
+                  <span>{tech.name}</span>
                 </button>
               ))}
             </div>
             <Input
-              placeholder="Otras tecnologías (separadas por coma)"
+              placeholder="Otras tecnologías (opcional, separadas por coma)"
               value={otherTech}
               onChange={(e) => setOtherTech(e.target.value)}
               className="mt-2"

@@ -77,15 +77,16 @@ export function useContactForm({
       privacyAccepted: false,
     });
 
-  const submit = async () => {
+  const submit = async (overrideTechs?: string[]) => {
     if (data.botField) return; // bot
     if (!valid) {
-      onError?.("Formulario inválido");
+      onError?.("Formulario inválido. Completa todos los campos requeridos.");
       return;
     }
 
     try {
       setSubmitting(true);
+      const techsToSend = overrideTechs || data.technologies;
       const res = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -101,7 +102,7 @@ export function useContactForm({
           budget: data.budget,
           timeline: data.timeline,
           projectDescription: data.projectDescription,
-          technologies: data.technologies.join(", "),
+          technologies: techsToSend.length > 0 ? techsToSend.join(", ") : "No especificadas",
           privacyAccepted: data.privacyAccepted,
           _subject: `Nuevo proyecto: ${data.serviceType} - ${data.name}`,
           _language: "es",
