@@ -67,7 +67,7 @@ const skillCategories: Category[] = [
     color: "primary",
     badge: "en progreso",
     skills: [
-      { name: "Validación/Sanitización", level: 70 },
+      { name: "Validación", level: 70 },
       { name: "Hash de contraseñas", level: 70 },
       { name: "Control de acceso básico", level: 60 },
       { name: "OWASP Top 10 (intro)", level: 40 },
@@ -110,7 +110,9 @@ export function Skills() {
                   {/* Category header */}
                   <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                     <div className={`p-1.5 sm:p-2 rounded-lg ${colors.bg}`}>
-                      <Icon className={`h-4 w-4 sm:h-5 sm:w-5 ${colors.text}`} />
+                      <Icon
+                        className={`h-4 w-4 sm:h-5 sm:w-5 ${colors.text}`}
+                      />
                     </div>
                     <h3 className="font-heading font-semibold text-sm sm:text-base text-card-foreground">
                       {category.title}
@@ -139,7 +141,10 @@ export function Skills() {
                             </span>
                           </div>
                           <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap">
-                            <span className="hidden sm:inline">{levelLabel(skill.level)} · </span>{skill.level}%
+                            <span className="hidden sm:inline">
+                              {levelLabel(skill.level)} ·{" "}
+                            </span>
+                            {skill.level}%
                           </span>
                         </div>
 
@@ -171,8 +176,13 @@ export function Skills() {
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 bg-card/80 backdrop-blur rounded-full border border-border/50 mx-2">
               <Lock className="h-3 w-3 sm:h-4 sm:w-4 text-accent flex-shrink-0" />
               <span className="text-xs sm:text-sm font-medium text-card-foreground">
-                <span className="hidden sm:inline">Formación activa en seguridad: aplicando OWASP Top 10 básico, hash y control de acceso</span>
-                <span className="sm:hidden">Formación activa en seguridad web</span>
+                <span className="hidden sm:inline">
+                  Formación activa en seguridad: aplicando OWASP Top 10 básico,
+                  hash y control de acceso
+                </span>
+                <span className="sm:hidden">
+                  Formación activa en seguridad web
+                </span>
               </span>
             </div>
           </div>
