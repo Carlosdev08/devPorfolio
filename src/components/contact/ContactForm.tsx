@@ -49,11 +49,16 @@ const TECH_OPTIONS = [
   { name: "Vue", icon: "🟢" },
   { name: "Angular", icon: "🅰️" },
   { name: "Node.js", icon: "🟩" },
+  { name: "PHP", icon: "🐘" },
+  { name: "Laravel", icon: "🔴" },
   { name: "Python", icon: "🐍" },
   { name: "TypeScript", icon: "🔷" },
   { name: "Next.js", icon: "▲" },
+  { name: "Vite", icon: "⚡" },
+  { name: "Flutter", icon: "💙" },
   { name: "WordPress", icon: "📝" },
   { name: "Shopify", icon: "🛒" },
+  { name: "Supabase", icon: "⚡" },
   { name: "Firebase", icon: "🔥" },
   { name: "PostgreSQL", icon: "🐘" },
   { name: "MongoDB", icon: "🍃" },
@@ -63,33 +68,45 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
   const { toast } = useToast();
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [otherTech, setOtherTech] = useState("");
-  
-  const { data, handleChange, valid, submitting, submit, setTechnologies } = useContactForm({
-    endpoint,
-    onSuccess: () =>
-      toast({
-        title: "¡Proyecto recibido!",
-        description: "Te contactaré en las próximas 24h para discutir los detalles.",
-        duration: 5000,
-      }),
-    onError: (r) =>
-      toast({
-        title: "No se pudo enviar",
-        description: r ?? "Inténtalo de nuevo.",
-        duration: 6000,
-      }),
-  });
+
+  const { data, handleChange, valid, submitting, submit, setTechnologies } =
+    useContactForm({
+      endpoint,
+      onSuccess: () =>
+        toast({
+          title: "¡Proyecto recibido!",
+          description:
+            "Te contactaré en las próximas 24h para discutir los detalles.",
+          duration: 5000,
+        }),
+      onError: (r) =>
+        toast({
+          title: "No se pudo enviar",
+          description: r ?? "Inténtalo de nuevo.",
+          duration: 6000,
+        }),
+    });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const allTechs = [...selectedTechs, ...(otherTech ? otherTech.split(',').map(t => t.trim()) : [])].filter(Boolean);
-    // Pasar las tecnologías directamente al submit
+
+    // Combinar tecnologías seleccionadas + otras
+    const allTechs = [
+      ...selectedTechs,
+      ...(otherTech
+        ? otherTech
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean)
+        : []),
+    ].filter(Boolean);
+
     await submit(allTechs);
   };
-  
+
   const toggleTech = (tech: string) => {
-    setSelectedTechs(prev => 
-      prev.includes(tech) ? prev.filter(t => t !== tech) : [...prev, tech]
+    setSelectedTechs((prev) =>
+      prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech]
     );
   };
 
@@ -214,13 +231,20 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
             >
               ¿Qué necesitas? *
             </label>
-            <Select value={data.serviceType} onValueChange={handleSelectChange("serviceType")}>
+            <Select
+              value={data.serviceType}
+              onValueChange={handleSelectChange("serviceType")}
+            >
               <SelectTrigger className="bg-background border-input">
                 <SelectValue placeholder="Selecciona un servicio" />
               </SelectTrigger>
               <SelectContent className="bg-background border border-border shadow-lg">
                 {SERVICE_TYPES.map((service) => (
-                  <SelectItem key={service.value} value={service.value} className="hover:bg-muted">
+                  <SelectItem
+                    key={service.value}
+                    value={service.value}
+                    className="hover:bg-muted"
+                  >
                     {service.label}
                   </SelectItem>
                 ))}
@@ -236,13 +260,20 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
               >
                 Presupuesto *
               </label>
-              <Select value={data.budget} onValueChange={handleSelectChange("budget")}>
+              <Select
+                value={data.budget}
+                onValueChange={handleSelectChange("budget")}
+              >
                 <SelectTrigger className="bg-background border-input">
                   <SelectValue placeholder="Tu presupuesto" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border border-border shadow-lg">
                   {BUDGET_RANGES.map((budget) => (
-                    <SelectItem key={budget.value} value={budget.value} className="hover:bg-muted">
+                    <SelectItem
+                      key={budget.value}
+                      value={budget.value}
+                      className="hover:bg-muted"
+                    >
                       {budget.label}
                     </SelectItem>
                   ))}
@@ -256,13 +287,20 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
               >
                 ¿Cuándo? *
               </label>
-              <Select value={data.timeline} onValueChange={handleSelectChange("timeline")}>
+              <Select
+                value={data.timeline}
+                onValueChange={handleSelectChange("timeline")}
+              >
                 <SelectTrigger className="bg-background border-input">
                   <SelectValue placeholder="Timeline" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border border-border shadow-lg">
                   {TIMELINE_OPTIONS.map((timeline) => (
-                    <SelectItem key={timeline.value} value={timeline.value} className="hover:bg-muted">
+                    <SelectItem
+                      key={timeline.value}
+                      value={timeline.value}
+                      className="hover:bg-muted"
+                    >
                       {timeline.label}
                     </SelectItem>
                   ))}
@@ -289,7 +327,9 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
               className="resize-none"
             />
             <p className="text-xs text-muted-foreground mt-1">
-              {data.projectDescription.length >= 20 ? '✓' : `Mínimo 20 caracteres (${data.projectDescription.length}/20)`}
+              {data.projectDescription.length >= 20
+                ? "✓"
+                : `Mínimo 20 caracteres (${data.projectDescription.length}/20)`}
             </p>
           </div>
 
@@ -299,7 +339,7 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
             </label>
             <div className="flex flex-wrap gap-2 mb-3">
               {TECH_OPTIONS.map((tech) => (
-                <button
+                <Button
                   key={tech.name}
                   type="button"
                   onClick={() => toggleTech(tech.name)}
@@ -311,7 +351,7 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
                 >
                   <span>{tech.icon}</span>
                   <span>{tech.name}</span>
-                </button>
+                </Button>
               ))}
             </div>
             <Input
@@ -359,6 +399,39 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
           size="lg"
           className="w-full"
           disabled={!valid || submitting}
+          title={
+            !valid
+              ? `Falta: ${
+                  data.name.trim().length < 2
+                    ? "Nombre "
+                    : ""
+                }${
+                  !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())
+                    ? "Email "
+                    : ""
+                }${
+                  !data.serviceType
+                    ? "Servicio "
+                    : ""
+                }${
+                  !data.budget
+                    ? "Presupuesto "
+                    : ""
+                }${
+                  !data.timeline
+                    ? "Timeline "
+                    : ""
+                }${
+                  data.projectDescription.trim().length < 20
+                    ? "Descripción(min 20) "
+                    : ""
+                }${
+                  !data.privacyAccepted
+                    ? "Aceptar privacidad"
+                    : ""
+                }`
+              : "Enviar proyecto"
+          }
         >
           {submitting ? (
             <>

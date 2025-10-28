@@ -17,6 +17,7 @@ import {
   SiSupabase,
   SiVite,
   SiGit,
+  SiFlutter,
 } from "react-icons/si";
 import { GiShield } from "react-icons/gi";
 import { IoLogoGithub } from "react-icons/io5";
@@ -47,6 +48,7 @@ export const techIcons: Record<string, JSX.Element> = {
   "node.js": <FaNodeJs className="h-5 w-5 text-green-500" />,
   vite: <SiVite className="h-5 w-5 text-purple-500" />,
   supabase: <SiSupabase className="h-5 w-5 text-emerald-500" />,
+  flutter: <SiFlutter className="h-5 w-5 text-blue-400" />,
   "vms & servidores web": <FaNodeJs className="h-5 w-5 text-lime-500" />,
 };
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { logger } from "@/utils/logger";
 
 export interface ContactFormData {
   name: string;
@@ -78,7 +79,12 @@ export function useContactForm({
     });
 
   const submit = async (overrideTechs?: string[]) => {
-    if (data.botField) return; // bot
+    // Honeypot check
+    if (data.botField.trim().length > 0) {
+      logger.warn("Bot detectado - honeypot activado", { botField: data.botField });
+      return;
+    }
+    
     if (!valid) {
       onError?.("Formulario inválido. Completa todos los campos requeridos.");
       return;
@@ -87,39 +93,48 @@ export function useContactForm({
     try {
       setSubmitting(true);
       const techsToSend = overrideTechs || data.technologies;
+      
+      const payload = {
+        name: data.name.trim(),
+        email: data.email.trim(),
+        company: data.company.trim() || "No especificada",
+        phone: data.phone.trim() || "No especificado",
+        serviceType: data.serviceType,
+        budget: data.budget,
+        timeline: data.timeline,
+        projectDescription: data.projectDescription.trim(),
+        technologies: techsToSend.length > 0 ? techsToSend.join(", ") : "No especificadas",
+        privacyAccepted: data.privacyAccepted,
+        _subject: `Nuevo proyecto: ${data.serviceType} - ${data.name}`,
+        _language: "es",
+        consentAt: new Date().toISOString(),
+      };
+      
+      logger.info("📤 Enviando formulario", payload);
+      
       const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          company: data.company,
-          phone: data.phone,
-          serviceType: data.serviceType,
-          budget: data.budget,
-          timeline: data.timeline,
-          projectDescription: data.projectDescription,
-          technologies: techsToSend.length > 0 ? techsToSend.join(", ") : "No especificadas",
-          privacyAccepted: data.privacyAccepted,
-          _subject: `Nuevo proyecto: ${data.serviceType} - ${data.name}`,
-          _language: "es",
-          consentAt: new Date().toISOString(),
-        }),
+        body: JSON.stringify(payload),
       });
       
+      logger.info("📥 Respuesta", { status: res.status, statusText: res.statusText });
+      
       if (res.ok) {
+        logger.success("Formulario enviado correctamente");
         onSuccess?.();
         reset();
       } else {
         const json = await res.json().catch(() => ({}));
+        logger.error("Error del servidor", json);
         const reason = json?.errors?.map((e: any) => e.message).join(", ");
         onError?.(reason || "No se pudo enviar el mensaje.");
       }
     } catch (err) {
-      console.error("Error al enviar formulario:", err);
+      logger.error("Error al enviar formulario", err);
       onError?.("Error de red. Verifica tu conexión.");
     } finally {
       setSubmitting(false);

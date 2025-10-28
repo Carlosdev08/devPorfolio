@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { logger } from "@/utils/logger";
 
 interface QuickContactFormData {
   name: string;
@@ -57,8 +58,9 @@ export function useQuickContactForm({
     });
 
   const submit = async () => {
-    if (data.botField) {
-      // Bot detectado, no hacer nada
+    // Honeypot check
+    if (data.botField.trim().length > 0) {
+      logger.warn("Bot detectado - honeypot activado", { botField: data.botField });
       return;
     }
     
@@ -69,32 +71,43 @@ export function useQuickContactForm({
 
     try {
       setSubmitting(true);
+      
+      const payload = {
+        name: data.name.trim(),
+        email: data.email.trim(),
+        message: data.message.trim(),
+        privacyAccepted: data.privacyAccepted,
+        _subject: `Nuevo mensaje general de ${data.name}`,
+        _language: "es",
+        intent: "general-contact",
+        consentAt: new Date().toISOString(),
+      };
+      
+      logger.info("📤 Enviando mensaje rápido", payload);
+      
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          privacyAccepted: data.privacyAccepted,
-          _subject: `Nuevo mensaje general de ${data.name}`,
-          _language: "es",
-          intent: "general-contact",
-        }),
+        body: JSON.stringify(payload),
       });
+      
+      logger.info("📥 Respuesta", { status: response.status, statusText: response.statusText });
 
       if (response.ok) {
+        logger.success("Mensaje enviado correctamente");
         onSuccess?.();
         reset();
       } else {
         const json = await response.json().catch(() => ({}));
+        logger.error("Error del servidor", json);
         const reason = json?.errors?.map((err: any) => err.message).join(", ");
         onError?.(reason || "No se pudo enviar el mensaje.");
       }
-    } catch {
+    } catch (error) {
+      logger.error("Error de red", error);
       onError?.("Error de red");
     } finally {
       setSubmitting(false);

@@ -1,6 +1,7 @@
 import { ExternalLink, Github, Shield, ShoppingBag, Code } from "lucide-react";
 import { Button } from "@/components/ui/enhanced-button";
 import { keyFor, techIcons } from "../ui/techIcons";
+import { logger } from "@/utils/logger";
 import porfolioCarlos from "../../../public/images/porfolioCarlos.png";
 
 const projects = [
@@ -149,7 +150,7 @@ export function Projects() {
                         size="sm"
                         className="flex-1 focus-ring"
                         onClick={() => {
-                          console.log(`Ver caso: ${project.title}`);
+                          logger.debug("Ver caso de estudio", { project: project.title });
                         }}
                       >
                         <ExternalLink className="h-4 w-4" />
@@ -162,7 +163,7 @@ export function Projects() {
                         className="focus-ring"
                         onClick={() => {
                           // Placeholder for GitHub link
-                          console.log(`GitHub: ${project.title}`);
+                          logger.debug("Ver repositorio GitHub", { project: project.title });
                         }}
                       >
                         <Github className="h-4 w-4" />
