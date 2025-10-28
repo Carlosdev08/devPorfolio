@@ -8,9 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Send, Briefcase, DollarSign, Clock, FileText } from "lucide-react";
+import { Send, Briefcase, DollarSign, Clock, FileText, X } from "lucide-react";
 import { useContactForm } from "@/hooks/use-contact-form";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 // Configuración de opciones del formulario
 const SERVICE_TYPES = [
@@ -43,9 +44,27 @@ const TIMELINE_OPTIONS = [
   { value: "flexible", label: "Flexible" },
 ];
 
+const TECH_OPTIONS = [
+  "React",
+  "Vue",
+  "Angular",
+  "Node.js",
+  "Python",
+  "TypeScript",
+  "Next.js",
+  "WordPress",
+  "Shopify",
+  "Firebase",
+  "PostgreSQL",
+  "MongoDB",
+];
+
 export function ContactForm({ endpoint }: { endpoint: string }) {
   const { toast } = useToast();
-  const { data, handleChange, valid, submitting, submit } = useContactForm({
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  const [otherTech, setOtherTech] = useState("");
+  
+  const { data, handleChange, valid, submitting, submit, setTechnologies } = useContactForm({
     endpoint,
     onSuccess: () =>
       toast({
@@ -63,7 +82,15 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const allTechs = [...selectedTechs, otherTech].filter(Boolean);
+    setTechnologies(allTechs);
     submit();
+  };
+  
+  const toggleTech = (tech: string) => {
+    setSelectedTechs(prev => 
+      prev.includes(tech) ? prev.filter(t => t !== tech) : [...prev, tech]
+    );
   };
 
   const handleSelectChange = (name: string) => (value: string) => {
@@ -267,22 +294,36 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
           </div>
 
           <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-foreground mb-2"
-            >
-              Información adicional *
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Tecnologías preferidas (opcional)
             </label>
-            <Textarea
-              id="message"
-              name="message"
-              value={data.message}
-              onChange={handleChange}
-              required
-              rows={3}
-              placeholder="Referencias, tecnologías específicas, dudas..."
-              className="resize-none"
+            <div className="flex flex-wrap gap-2 mb-3">
+              {TECH_OPTIONS.map((tech) => (
+                <button
+                  key={tech}
+                  type="button"
+                  onClick={() => toggleTech(tech)}
+                  className={
+                    selectedTechs.includes(tech)
+                      ? "px-3 py-1.5 text-sm rounded-full border-2 border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                      : "px-3 py-1.5 text-sm rounded-full border-2 border-border bg-background text-foreground hover:border-primary/50 transition-colors"
+                  }
+                >
+                  {tech}
+                </button>
+              ))}
+            </div>
+            <Input
+              placeholder="Otras tecnologías (separadas por coma)"
+              value={otherTech}
+              onChange={(e) => setOtherTech(e.target.value)}
+              className="mt-2"
             />
+            {selectedTechs.length > 0 && (
+              <div className="mt-2 text-xs text-muted-foreground">
+                Seleccionadas: {selectedTechs.join(", ")}
+              </div>
+            )}
           </div>
         </div>
 

@@ -9,7 +9,7 @@ export interface ContactFormData {
   budget: string;
   timeline: string;
   projectDescription: string;
-  message: string;
+  technologies: string[];
   botField: string; // honeypot
   privacyAccepted: boolean;
 }
@@ -36,7 +36,7 @@ export function useContactForm({
     budget: "",
     timeline: "",
     projectDescription: "",
-    message: "",
+    technologies: [],
     botField: "",
     privacyAccepted: false,
   });
@@ -60,7 +60,6 @@ export function useContactForm({
     data.budget.length > 0 &&
     data.timeline.length > 0 &&
     data.projectDescription.trim().length >= 20 &&
-    data.message.trim().length >= 10 &&
     data.privacyAccepted;
 
   const reset = () =>
@@ -73,7 +72,7 @@ export function useContactForm({
       budget: "",
       timeline: "",
       projectDescription: "",
-      message: "",
+      technologies: [],
       botField: "",
       privacyAccepted: false,
     });
@@ -102,27 +101,33 @@ export function useContactForm({
           budget: data.budget,
           timeline: data.timeline,
           projectDescription: data.projectDescription,
-          message: data.message,
+          technologies: data.technologies.join(", "),
           privacyAccepted: data.privacyAccepted,
           _subject: `Nuevo proyecto: ${data.serviceType} - ${data.name}`,
           _language: "es",
           consentAt: new Date().toISOString(),
         }),
       });
-      const json = await res.json().catch(() => ({} as any));
+      
       if (res.ok) {
         onSuccess?.();
         reset();
       } else {
+        const json = await res.json().catch(() => ({}));
         const reason = json?.errors?.map((e: any) => e.message).join(", ");
         onError?.(reason || "No se pudo enviar el mensaje.");
       }
-    } catch {
-      onError?.("Error de red");
+    } catch (err) {
+      console.error("Error al enviar formulario:", err);
+      onError?.("Error de red. Verifica tu conexión.");
     } finally {
       setSubmitting(false);
     }
   };
 
-  return { data, handleChange, valid, submitting, submit };
+  const setTechnologies = (techs: string[]) => {
+    setData(prev => ({ ...prev, technologies: techs }));
+  };
+
+  return { data, handleChange, valid, submitting, submit, setTechnologies };
 }
