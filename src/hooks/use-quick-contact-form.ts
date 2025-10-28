@@ -57,10 +57,13 @@ export function useQuickContactForm({
     });
 
   const submit = async () => {
-    if (data.botField || !valid) {
-      if (!data.botField) {
-        onError?.("Formulario incompleto");
-      }
+    if (data.botField) {
+      // Bot detectado, no hacer nada
+      return;
+    }
+    
+    if (!valid) {
+      onError?.("Por favor completa todos los campos requeridos");
       return;
     }
 
