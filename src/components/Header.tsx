@@ -103,7 +103,7 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:space-x-8">
+          <div className="hidden md:flex space-x-4 md:space-x-8">
             {navigation.map((item) =>
               item.type === "anchor" ? (
                 <a
@@ -119,7 +119,9 @@ export function Header() {
                       : "text-foreground hover:text-primary"
                   }`}
                   aria-current={
-                    activeSection === item.href.substring(1) ? "true" : undefined
+                    activeSection === item.href.substring(1)
+                      ? "true"
+                      : undefined
                   }
                 >
                   {item.name}
@@ -140,7 +142,7 @@ export function Header() {
                 >
                   {item.name}
                 </Link>
-              ),
+              )
             )}
           </div>
 
@@ -214,7 +216,7 @@ export function Header() {
                   >
                     {item.name}
                   </Link>
-                ),
+                )
               )}
             </div>
           </div>
