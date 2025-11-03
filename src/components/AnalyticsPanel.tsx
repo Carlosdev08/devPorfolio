@@ -147,7 +147,7 @@ export const AnalyticsPanel = () => {
                   Analytics Panel
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Datos almacenados localmente - 100% gratis
+                  Datos almacenados localmente
                 </p>
               </div>
               <Button
@@ -163,9 +163,15 @@ export const AnalyticsPanel = () => {
               <div className="mx-6 mt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl p-8 shadow-2xl animate-pulse">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-white font-bold text-lg mb-2">👑 VISITAS VIP</p>
-                    <p className="text-white text-7xl font-black">{stats.vipVisits}</p>
-                    <p className="text-yellow-100 text-sm mt-3">💼 Recruiters & Developers</p>
+                    <p className="text-white font-bold text-lg mb-2">
+                      👑 VISITAS VIP
+                    </p>
+                    <p className="text-white text-7xl font-black">
+                      {stats.vipVisits}
+                    </p>
+                    <p className="text-yellow-100 text-sm mt-3">
+                      💼 Recruiters & Developers
+                    </p>
                   </div>
                   <div className="text-8xl animate-bounce">🎉</div>
                 </div>
@@ -274,17 +280,19 @@ export const AnalyticsPanel = () => {
                             </span>
                           )}
                           {/* Badge de origen */}
-                          {event.data.classification && !event.data.classification.isVIP && (
-                            <span className="text-xs px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                              {event.data.classification.badge} {event.data.classification.source}
-                            </span>
-                          )}
+                          {event.data.classification &&
+                            !event.data.classification.isVIP && (
+                              <span className="text-xs px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                {event.data.classification.badge}{" "}
+                                {event.data.classification.source}
+                              </span>
+                            )}
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
                           {new Date(event.timestamp).toLocaleString("es-ES")}
                         </span>
                       </div>
-                      
+
                       {/* Descripción de la clasificación */}
                       {event.data.classification && (
                         <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
