@@ -102,7 +102,6 @@ export function Projects() {
                     </div>
 
                     {/* Project icon */}
-                    <div className="relative z-10 bg-white/20 backdrop-blur p-4 rounded-2xl"></div>
 
                     {/* Status badge */}
                     <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur rounded-full border border-white/30">
@@ -150,7 +149,9 @@ export function Projects() {
                         size="sm"
                         className="flex-1 focus-ring"
                         onClick={() => {
-                          logger.debug("Ver caso de estudio", { project: project.title });
+                          logger.debug("Ver caso de estudio", {
+                            project: project.title,
+                          });
                         }}
                       >
                         <ExternalLink className="h-4 w-4" />
@@ -163,7 +164,9 @@ export function Projects() {
                         className="focus-ring"
                         onClick={() => {
                           // Placeholder for GitHub link
-                          logger.debug("Ver repositorio GitHub", { project: project.title });
+                          logger.debug("Ver repositorio GitHub", {
+                            project: project.title,
+                          });
                         }}
                       >
                         <Github className="h-4 w-4" />
